@@ -9,20 +9,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpaceInvaders extends ApplicationAdapter {
-	private static final int FRAME_COLS = 7, FRAME_ROWS = 10;
+	private static final int FRAME_COLS = 10, FRAME_ROWS = 7;
 
 	Animation<TextureRegion> playerAnimation;
 	SpriteBatch batch;
-	Texture PlayerSheet;
+	Texture playerSheet;
 
 	float stateTime;
 
 	@Override
 	public void create () {
-		PlayerSheet = new Texture("SpaceInvaders2.png");
-		TextureRegion[][] tmp = TextureRegion.split(PlayerSheet,
-				PlayerSheet.getWidth() / FRAME_COLS,
-				PlayerSheet.getHeight() / FRAME_ROWS);
+		playerSheet = new Texture("SpaceInvaders2.png");
+		TextureRegion[][] tmp = TextureRegion.split(playerSheet,
+				playerSheet.getWidth() / FRAME_COLS,
+				playerSheet.getHeight() / FRAME_ROWS);
 
 		TextureRegion[] walkFrames = new TextureRegion[7 * 10];
 		int index = 0;
@@ -31,7 +31,7 @@ public class SpaceInvaders extends ApplicationAdapter {
 				walkFrames[index++] = tmp[i][j];
 			}
 		}
-		playerAnimation = new Animation<TextureRegion>(0.025f, walkFrames);
+		playerAnimation = new Animation<TextureRegion>(0.25f, walkFrames);
 		batch = new SpriteBatch();
 		stateTime = 0f;
 	}
@@ -44,13 +44,13 @@ public class SpaceInvaders extends ApplicationAdapter {
 
 		TextureRegion currentFrame = playerAnimation.getKeyFrame(stateTime, true);
 		batch.begin();
-		batch.draw(PlayerSheet, 50, 50);
+		batch.draw(currentFrame, 50, 50);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		PlayerSheet.dispose();
+		playerSheet.dispose();
 	}
 }
