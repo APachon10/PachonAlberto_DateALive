@@ -25,11 +25,9 @@ public class SpaceInvaders extends ApplicationAdapter {
 				playerSheet.getHeight() / FRAME_ROWS);
 
 		TextureRegion[] walkFrames = new TextureRegion[7 * 10];
-		int index = 0;
-		for (int i = 0; i < FRAME_ROWS; i++) {
-			for (int j = 0; j < FRAME_COLS; j++) {
-				walkFrames[index++] = tmp[i][j];
-			}
+		int index=0;
+		for (int j = 0; j < FRAME_ROWS; j++) {
+			walkFrames[index++] = tmp[1][j];
 		}
 		playerAnimation = new Animation<TextureRegion>(0.25f, walkFrames);
 		batch = new SpriteBatch();
