@@ -10,24 +10,33 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpaceInvaders extends ApplicationAdapter {
 	private static final int FRAME_COLS = 10, FRAME_ROWS = 7;
+	private static final int FRAME_COLS2 = 10, FRAME_ROWS2 = 7;
 
 	Animation<TextureRegion> playerAnimation;
 	SpriteBatch batch;
-	Texture playerSheet;
+	Texture player;
+	Texture monster;
 
 	float stateTime;
 
 	@Override
 	public void create () {
-		playerSheet = new Texture("SpaceInvaders2.png");
-		TextureRegion[][] tmp = TextureRegion.split(playerSheet,
-				playerSheet.getWidth() / FRAME_COLS,
-				playerSheet.getHeight() / FRAME_ROWS);
+		player = new Texture("SpaceInvaders2.png");
+		monster = new Texture("Monsters.png");
+		TextureRegion[][] tmp = TextureRegion.split(player,
+				player.getWidth() / FRAME_COLS,
+				player.getHeight() / FRAME_ROWS);
+		TextureRegion[][] tmp2 = TextureRegion.split(monster,
+				monster.getWidth() / FRAME_COLS,
+				monster.getHeight() / FRAME_ROWS);
 
-		TextureRegion[] walkFrames = new TextureRegion[7 * 10];
+		TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
 		int index=0;
-		for (int j = 0; j < FRAME_ROWS; j++) {
-			walkFrames[index++] = tmp[1][j];
+		for (int i=0;i<FRAME_COLS;i++) {
+			walkFrames[index++] = tmp[0][i];
+		}
+		for (int i = 0; i < FRAME_COLS2; i++) {
+
 		}
 		playerAnimation = new Animation<TextureRegion>(0.25f, walkFrames);
 		batch = new SpriteBatch();
