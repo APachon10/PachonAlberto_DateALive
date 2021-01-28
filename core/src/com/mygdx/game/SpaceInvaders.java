@@ -10,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpaceInvaders extends ApplicationAdapter {
 	private static final int FRAME_COLS = 10, FRAME_ROWS = 7;
-	private static final int FRAME_COLS2 = 10, FRAME_ROWS2 = 7;
+	//private static final int FRAME_COLS2 = 2, FRAME_ROWS2 = 1;
 
-	Animation<TextureRegion> playerAnimation;
-	SpriteBatch batch;
+	Animation<TextureRegion> playerAnimationRigth;
+	Animation<TextureRegion> playerAnimationUp;
+	Animation<TextureRegion> monsterAnimation;
 	Texture player;
+	SpriteBatch batch;
 	Texture monster;
 
 	float stateTime;
@@ -22,23 +24,26 @@ public class SpaceInvaders extends ApplicationAdapter {
 	@Override
 	public void create () {
 		player = new Texture("SpaceInvaders2.png");
-		monster = new Texture("Monsters.png");
+		monster = new Texture("Monster.png");
 		TextureRegion[][] tmp = TextureRegion.split(player,
 				player.getWidth() / FRAME_COLS,
 				player.getHeight() / FRAME_ROWS);
-		TextureRegion[][] tmp2 = TextureRegion.split(monster,
-				monster.getWidth() / FRAME_COLS,
-				monster.getHeight() / FRAME_ROWS);
 
-		TextureRegion[] walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
-		int index=0;
-		for (int i=0;i<FRAME_COLS;i++) {
-			walkFrames[index++] = tmp[0][i];
+		// Right
+		TextureRegion[] walkRight = new TextureRegion[FRAME_COLS-2];
+		int indexRight=0;
+		for (int i=0;i<FRAME_COLS-2;i++) {
+			walkRight[indexRight++] = tmp[0][i];
 		}
-		for (int i = 0; i < FRAME_COLS2; i++) {
+		// Up
+		TextureRegion[] walkUp = new TextureRegion[FRAME_COLS-4];
+		int indexLeft=0;
+		for (int i = 0; i < FRAME_COLS-4; i++) {
+			walkUp[indexLeft++]=tmp[1][i];
+		}
 
-		}
-		playerAnimation = new Animation<TextureRegion>(0.25f, walkFrames);
+		playerAnimationRigth = new Animation<TextureRegion>(0.15f, walkRight);
+		playerAnimationUp = new Animation<TextureRegion>(0.15f, walkUp);
 		batch = new SpriteBatch();
 		stateTime = 0f;
 	}
@@ -49,15 +54,18 @@ public class SpaceInvaders extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		stateTime += Gdx.graphics.getDeltaTime();
 
-		TextureRegion currentFrame = playerAnimation.getKeyFrame(stateTime, true);
+		TextureRegion currentFrame = playerAnimationRigth.getKeyFrame(stateTime, true);
+		TextureRegion currentFrame2 = playerAnimationUp.getKeyFrame(stateTime, true);
+		//TextureRegion enemyFrame = monsterAnimation(stateTime,true);
 		batch.begin();
-		batch.draw(currentFrame, 50, 50);
+		batch.draw(currentFrame, 270, 50);
+		//batch.draw(enemyFrame,70,70);
 		batch.end();
 	}
 	
 	@Override
 	public void dispose () {
 		batch.dispose();
-		playerSheet.dispose();
+		player.dispose();
 	}
 }
