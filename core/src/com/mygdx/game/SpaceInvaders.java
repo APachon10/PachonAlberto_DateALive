@@ -41,6 +41,10 @@ public class SpaceInvaders extends ApplicationAdapter {
 		for (int i = 0; i < FRAME_COLS-4; i++) {
 			walkUp[indexLeft++]=tmp[1][i];
 		}
+		//Left
+		TextureRegion[] walkLeft = new TextureRegion[FRAME_COLS-4];
+		
+
 
 		playerAnimationRigth = new Animation<TextureRegion>(0.15f, walkRight);
 		playerAnimationUp = new Animation<TextureRegion>(0.15f, walkUp);
@@ -55,11 +59,10 @@ public class SpaceInvaders extends ApplicationAdapter {
 		stateTime += Gdx.graphics.getDeltaTime();
 
 		TextureRegion currentFrame = playerAnimationRigth.getKeyFrame(stateTime, true);
-		TextureRegion currentFrame2 = playerAnimationUp.getKeyFrame(stateTime, true);
-		//TextureRegion enemyFrame = monsterAnimation(stateTime,true);
+		TextureRegion enemyFrame = monsterAnimation(stateTime,true);
 		batch.begin();
 		batch.draw(currentFrame, 270, 50);
-		//batch.draw(enemyFrame,70,70);
+
 		batch.end();
 	}
 	
